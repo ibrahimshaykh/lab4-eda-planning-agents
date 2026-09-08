@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.semgrep/
+.ipynb_checkpoints/
+.playwright-mcp/
+streamlit.log
