@@ -27,20 +27,6 @@ st.set_page_config(
     layout="wide",
 )
 
-st.markdown(
-    """
-    <style>
-    .metric-card {
-        background-color: #f5f7fa;
-        border-radius: 10px;
-        padding: 14px 18px;
-        border: 1px solid #e3e7ec;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
 
 # ----------------------------------------------------------------------
 # Sidebar — all interactive controls live here
@@ -86,13 +72,12 @@ overview_tab, missing_tab, stats_tab, viz_tab = st.tabs(
 )
 
 with overview_tab:
+    # st.metric follows the active Streamlit theme, so these stay readable
+    # in both light and dark mode.
     c1, c2, c3 = st.columns(3)
-    c1.markdown(f"<div class='metric-card'><b>Rows</b><br>{n_rows}</div>", unsafe_allow_html=True)
-    c2.markdown(f"<div class='metric-card'><b>Columns</b><br>{n_cols}</div>", unsafe_allow_html=True)
-    c3.markdown(
-        f"<div class='metric-card'><b>Total Missing Cells</b><br>{int(df.isna().sum().sum())}</div>",
-        unsafe_allow_html=True,
-    )
+    c1.metric("Rows", f"{n_rows:,}")
+    c2.metric("Columns", f"{n_cols:,}")
+    c3.metric("Total Missing Cells", f"{int(df.isna().sum().sum()):,}")
 
     st.subheader("First 5 Rows")
     st.dataframe(df.head(), use_container_width=True)
